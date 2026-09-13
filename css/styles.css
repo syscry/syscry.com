@@ -7070,3 +7070,18 @@ img:hover {
   font-style: normal;
   font-display: swap;
 }
+/* The logo used to scramble in letter by letter and every project link typed itself out,
+   roughly three seconds before the menu settled. The whole block now fades in as one.
+   Hovering the logo still scrambles it. */
+.sys-control.syscry,
+.sys-links-div {
+  animation: syscry-fade-in .9s ease-out both;
+}
+@keyframes syscry-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sys-control.syscry,
+  .sys-links-div { animation: none; }
+}

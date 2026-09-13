@@ -146,52 +146,13 @@ $(document).ready(function() {
     let animationFrame = null;
     let isHovering = false;
     let phase = 0;
-    let initialAnimationComplete = false;
+    // The load-time reveal is gone: the logo now fades in with its whole block,
+    // so hover is armed immediately instead of waiting for a reveal to finish.
+    let initialAnimationComplete = true;
 
     const getTextElement = () => {
       return element.querySelector('span') || element;
     };
-
-    // Initial page load animation - reveal each letter with scramble
-    const initialReveal = () => {
-      const textEl = getTextElement();
-      textEl.textContent = '';
-      let currentIndex = 0;
-
-      const revealNextLetter = () => {
-        if (currentIndex >= LOGO_TEXT.length) {
-          initialAnimationComplete = true;
-          return;
-        }
-
-        // Scramble effect before revealing the letter
-        let scrambleCount = 0;
-        const maxScrambles = 5;
-
-        const scrambleThenReveal = () => {
-          if (scrambleCount < maxScrambles) {
-            // Show revealed letters + one random char
-            let result = LOGO_TEXT.substring(0, currentIndex);
-            result += CHARS[Math.floor(Math.random() * CHARS.length)];
-            textEl.textContent = result;
-            scrambleCount++;
-            setTimeout(scrambleThenReveal, 40);
-          } else {
-            // Reveal the actual letter
-            currentIndex++;
-            textEl.textContent = LOGO_TEXT.substring(0, currentIndex);
-            setTimeout(revealNextLetter, LETTER_DELAY - 200);
-          }
-        };
-
-        scrambleThenReveal();
-      };
-
-      revealNextLetter();
-    };
-
-    // Start initial animation
-    initialReveal();
 
     const animate = () => {
       if (!isHovering) return;
